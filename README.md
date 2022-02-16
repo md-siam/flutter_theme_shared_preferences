@@ -9,5 +9,5 @@ Storing theme data to local storage using Shared Preferences.
 [provider: ^6.0.2](https://pub.dev/packages/provider)<br>
 // For accessing & storing data to local storage<br>
 [shared_preferences: ^2.0.13](https://pub.dev/packages/shared_preferences)<br>
-// For animated switcher
+// For animated switching between day & night mode<br>
 [day_night_switcher: ^0.2.0+1](https://pub.dev/packages/day_night_switcher)<br>
