@@ -36,8 +36,8 @@ class ThemeNotifier extends ChangeNotifier {
     notifyListeners();
   }
 
-  toggleChangeTheme() {
-    _darkMode = !_darkMode!;
+  toggleChangeTheme(bool isOn) {
+    darkMode==isOn ? _darkMode! : _darkMode = !_darkMode!;
     _savePreferences();
     notifyListeners();
   }

@@ -1,3 +1,4 @@
+import 'package:day_night_switcher/day_night_switcher.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -15,14 +16,15 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (_) => ThemeNotifier(),
       child: Consumer<ThemeNotifier>(
-          builder: (context, ThemeNotifier notifier, child) {
-        return MaterialApp(
-          debugShowCheckedModeBanner: false,
-          title: 'Theme Change: Shared Preferences',
-          theme: notifier.darkMode! ? dark_mode : light_mode,
-          home: const MyHomePage(title: 'Theme: Shared Preferences'),
-        );
-      }),
+        builder: (context, ThemeNotifier notifier, child) {
+          return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            title: 'Theme Change: Shared Preferences',
+            theme: notifier.darkMode! ? dark_mode : light_mode,
+            home: const MyHomePage(title: 'Theme: Shared Preferences'),
+          );
+        },
+      ),
     );
   }
 }
@@ -58,18 +60,46 @@ class _MyHomePageState extends State<MyHomePage> {
             Container(
               padding: const EdgeInsets.only(left: 15, right: 15, bottom: 30),
               child: Consumer<ThemeNotifier>(
-                builder: (context, notifier, child) => SwitchListTile(
+                builder: (context, notifier, child) {
+                  return DayNightSwitcherIcon(
+                    onStateChanged: (val) {
+                      notifier.toggleChangeTheme(val);
+                    },
+                    isDarkModeEnabled: notifier.darkMode!,
+                  );
+                },
+              ),
+            ),
+            const SizedBox(height: 20),
+            Container(
+              padding: const EdgeInsets.only(left: 15, right: 15, bottom: 30),
+              child: Consumer<ThemeNotifier>(
+                builder: (context, notifier, child) {
+                  return DayNightSwitcher(
+                    onStateChanged: (val) {
+                      notifier.toggleChangeTheme(val);
+                    },
+                    isDarkModeEnabled: notifier.darkMode!,
+                  );
+                },
+              ),
+            ),
+            const SizedBox(height: 20),
+            Container(
+              padding: const EdgeInsets.only(left: 15, right: 15, bottom: 30),
+              child: Consumer<ThemeNotifier>(
+                builder: (context, notifier, child) => SwitchListTile.adaptive(
                   title: notifier.darkMode!
                       ? const Text('Dark Mode')
                       : const Text("Light Mode"),
                   onChanged: (val) {
-                    notifier.toggleChangeTheme();
+                    notifier.toggleChangeTheme(val);
                   },
                   value: notifier.darkMode!,
                 ),
               ),
             ),
-            const SizedBox(height: 30),
+            const SizedBox(height: 20),
             const Text(
               'You have pushed the button this many times:',
             ),
